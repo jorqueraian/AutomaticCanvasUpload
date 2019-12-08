@@ -24,14 +24,14 @@ class Student(object):
                 for a in all_assignments:
                     submission = a.get_submission(self.current_user)
                     if submission.workflow_state == 'graded':
-                        assignments.append((a.name, a.id, c.name, c.id))
+                        assignments.append((a.name, a.id, c.course_code, c.id))
         else:
             specified_course = self.canvas.get_course(course)
             all_assignments = specified_course.get_assignments()
             for a in all_assignments:
                 submission = a.get_submission(self.current_user)
                 if submission.workflow_state == 'graded':
-                    assignments.append((a.name, a.id, specified_course.name, specified_course.id))
+                    assignments.append((a.name, a.id, specified_course.course_code, specified_course.id))
         return assignments
 
     @staticmethod

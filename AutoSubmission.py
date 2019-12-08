@@ -77,6 +77,7 @@ if __name__ == '__main__':
     # Verify that a path was provided
     if len(sys.argv) < 2:
         print('No file selected')
+        input('Press any key to exit ...')
     else:
         path = sys.argv[1]
         # Verify correctness of path
@@ -85,4 +86,4 @@ if __name__ == '__main__':
             auto_upload(me, path)
         else:
             print(f'File not found: {path}')
-
+            input('Press any key to exit ...')
