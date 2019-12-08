@@ -3,13 +3,13 @@ Given a submission file, this tool utilizes the python library [CanvasAPI](https
 
 ## Usage
 This script requires a json file with student Canvas API token. Follow [these](https://community.canvaslms.com/docs/DOC-10806-4214724194) instructions to optain a token.
-The formatting of the json file should be as follows
+The formatting of the `credentials.json` file should be as follows
 ```json
 {
   "type": "Canvas",
-  "auth_token": "<token>",
-  "client_email": "email@school.edu",
-  "api_url": "https://canvas.colorado.edu/"
+  "auth_token": "<Canvas API Token>",
+  "student_email": "<student email address>",
+  "api_url": "<Canvas URL ex. https://canvas.colorado.edu/>"
 }
 ```
-Currently `client_email` is not used.
+Currently `student_email` is not used.

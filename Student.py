@@ -4,14 +4,12 @@ import datetime
 
 
 class Student(object):
-    API_URL = "https://canvas.colorado.edu/"
-
     def __init__(self, student_cred_file='credentials.json'):
         # Parse json
         with open(student_cred_file) as f:
             data = json.load(f)
         # Create canvas obj
-        self.canvas = Canvas(self.API_URL, data['auth_token'])
+        self.canvas = Canvas(data['api_url'], data['auth_token'])
 
         self.current_user = self.canvas.get_current_user()
 
