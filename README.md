@@ -22,7 +22,9 @@ Currently `student_email` is not used.
 ### Building and using script
 These scripts can be converted to .exe files using [PyInstaller](https://pypi.org/project/PyInstaller/).
 Once Converted, and credentials file is put in dist folder, Desired files for upload 
-can be dragged onto the exe file. 
+can be dragged onto the exe file. I recommend using the command 
+
+`pyinstaller --onefile AutoSubmission.py`
 
 ### Naming files for submission
 Naming the files is the most important part. Files for upload should contain the 

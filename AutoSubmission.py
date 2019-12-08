@@ -3,6 +3,7 @@ from Student import Student
 from StringSimilarity import cost_of_alignment
 import os
 import sys
+import re
 
 USER_PATH = 'C:\\Users\\jorqu\\'
 
@@ -11,7 +12,13 @@ def clean_str(input_str):
     # Remove .pdf or what ever
     # Make lowercase and remove whitespace
     # remove _ or -
-    return str(input_str).split('.')[0].lower().strip().replace('_', '').replace('-', '')
+    return str(input_str).split('.')[0].lower().strip().replace('_', '').replace('-', '').replace(',', '')
+
+
+def clean_course_code(course_code):
+    # For a case like CSCI 3104-100--100B--200, this wil return CSCI 3104
+    cleaned_code = re.sub(r'\D\d{3}\D.*$', '', course_code + ' ')
+    return cleaned_code
 
 
 def try_verify_path(local_path):
@@ -43,8 +50,9 @@ def find_assignment(student, file_path: str):
 
     best_match = None
     for a in assignments:
-        combine_str = clean_str(a[2]+a[0])
-        cost = cost_of_alignment(combine_str, cleaned_file_name, 1, 2, 3)
+        combine_str = clean_str(clean_course_code(a[2])+a[0])
+        # We have the weights because we really only want move around parts of the string rather than replace.
+        cost = cost_of_alignment(combine_str, cleaned_file_name, 6, 1, 7)
         cost_per_char = cost / (len(combine_str)+len(cleaned_file_name))
         if best_match is None or cost_per_char < best_match[1]:
             best_match = (a, cost_per_char)
@@ -73,11 +81,10 @@ if __name__ == '__main__':
     # For reference: Documents\CSCI_3104_Final_Exam.zip
     # Initialize student API
     me = Student()
-
     # Verify that a path was provided
     if len(sys.argv) < 2:
         print('No file selected')
-        input('Press any key to exit ...')
+        input('Press enter key to exit ...')
     else:
         path = sys.argv[1]
         # Verify correctness of path
@@ -86,4 +93,4 @@ if __name__ == '__main__':
             auto_upload(me, path)
         else:
             print(f'File not found: {path}')
-            input('Press any key to exit ...')
+            input('Press enter key to exit ...')
