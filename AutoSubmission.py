@@ -52,7 +52,7 @@ def find_assignment(student, file_path: str):
     for a in assignments:
         combine_str = clean_str(clean_course_code(a[2])+a[0])
         # We have the weights because we really only want move around parts of the string rather than replace.
-        cost = cost_of_alignment(combine_str, cleaned_file_name, 6, 1, 7)
+        cost = cost_of_alignment(combine_str, cleaned_file_name, 9, 1, 9)
         cost_per_char = cost / (len(combine_str)+len(cleaned_file_name))
         if best_match is None or cost_per_char < best_match[1]:
             best_match = (a, cost_per_char)
@@ -90,7 +90,10 @@ if __name__ == '__main__':
         # Verify correctness of path
         if try_verify_path(path):
             # Upload to canvas
-            auto_upload(me, path)
+            try:
+                auto_upload(me, path)
+            except Exception as e:
+                input(f'Error: {e}\nPress enter key to exit...')
         else:
             print(f'File not found: {path}')
             input('Press enter key to exit ...')
